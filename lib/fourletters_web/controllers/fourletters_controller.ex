@@ -3,25 +3,39 @@ defmodule FourlettersWeb.FourlettersController do
   import Fourletters.Troll
   import ABCD.Fourletters
 
-  def fourletters(conn, %{"messenger" => messenger}) do
-    if String.length(messenger) == 4 do
+  def fourletters(conn, %{"fourletters" => fourletters}) do
+    if String.length(fourletters) == 4 do
 
-      {:ok, sup_pid} = Supervisor.start_link(Fourletters.Troll, [])
       pid = case Supervisor.start_child(
-                  sup_pid, %{id: String.to_atom(messenger),
-                             start: {ABCD.Fourletters, :start_link, [[]]}}) do
+          Fourletters.Troll,
+          %{id: String.to_atom(fourletters), start: {ABCD.Fourletters, :start_link, [["oo"]]}}) do
         {:ok, pid} -> pid
         {:error, {:already_started, pid}} -> pid
       end
       messages = ABCD.Fourletters.get(pid)
-      render(conn, "four.html", messenger: messenger, messages: messages)
+      render(conn, "four.html", fourletters: fourletters, messages: messages)
+    else
+      redirect(conn, to: "/")
     end
-    redirect(conn, to: "/")
   end
 
-  # def fourletters(conn, %{"messenger" => messenger}) do
-  #   render(conn, "nothing.html")
-  # end
+  def addletters(conn, _params) do
+    %{params: params, path_params: path_params} = conn
+    %{"fourletters" => fourletters, "message" => message} = params
+    if String.length(fourletters) == 4 and String.length(message) < 101 do
+
+      pid = case Supervisor.start_child(
+          Fourletters.Troll,
+          %{id: String.to_atom(fourletters), start: {ABCD.Fourletters, :start_link, [["oo"]]}}) do
+        {:ok, pid} -> pid
+        {:error, {:already_started, pid}} -> pid
+      end
+      messages = ABCD.Fourletters.put(pid, message)
+      json(conn, %{fourletters: fourletters, messages: messages})
+    else
+      json(conn, %{error: message})
+    end
+  end
 
   def nothing(conn, _params) do
     render(conn, "nothing.html")

@@ -17,15 +17,17 @@ defmodule FourlettersWeb.Router do
     pipe_through :browser
 
     get "/", FourlettersController, :nothing
-    get "/:messenger", FourlettersController, :fourletters
+    get "/:fourletters", FourlettersController, :fourletters
     # get "/fourletters", FourlettersController, :index
     # get "/fourletters/:messenger", FourlettersController, :show
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", FourlettersWeb do
-  #   pipe_through :api
-  # end
+  scope "/", FourlettersWeb do
+    pipe_through :api
+
+    post "/:fourletters", FourlettersController, :addletters
+  end
 
   # Enables LiveDashboard only for development
   #

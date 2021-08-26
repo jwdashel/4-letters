@@ -10,7 +10,7 @@ defmodule Fourletters.Application do
       # Start the Telemetry supervisor
       FourlettersWeb.Telemetry,
       # Start the letter troll
-      Fourletters.Troll,
+      {Fourletters.Troll, name: Fourletters.Troll},
       # Start the PubSub system
       {Phoenix.PubSub, name: Fourletters.PubSub},
       # Start the Endpoint (http/https)

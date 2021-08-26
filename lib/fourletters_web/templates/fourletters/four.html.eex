@@ -1,2 +1,8 @@
-<h1>hey <%= @messenger %></h1>
-<%= @messages %>
+<h1>hey <%= @fourletters %></h1>
+<ul>
+	<%= for message <- @messages do %>
+	<li>
+		<%= message %>
+	</li>
+	<% end %>
+</ul>
