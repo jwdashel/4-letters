@@ -17,9 +17,9 @@ defmodule FourlettersWeb.Router do
     pipe_through :browser
 
     get "/", FourlettersController, :nothing
-    get "/:messenger", FourlettersController, :yo
-    get "/fourletters", FourlettersController, :index
-    get "/fourletters/:messenger", FourlettersController, :show
+    get "/:messenger", FourlettersController, :fourletters
+    # get "/fourletters", FourlettersController, :index
+    # get "/fourletters/:messenger", FourlettersController, :show
   end
 
   # Other scopes may use custom stacks.

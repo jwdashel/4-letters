@@ -1,0 +1,38 @@
+iex(1)> {:ok, pid} = ABCD.Fourletters.start_link([])
+{:ok, #PID<0.350.0>}
+iex(2)> ABCD.Fourletters.get(pid)
+[]
+iex(3)> ABCD.Fourletters.put(pid, "he")
+:ok
+iex(4)> ABCD.Fourletters.get(pid)
+["he"]
+iex(5)> ABCD.Fourletters.put(pid, "he")
+:ok
+iex(6)> ABCD.Fourletters.get(pid)
+["he", "he"]
+iex(7)> [%{id: :aoeu, start: {ABCD.Fourletters, :start_link, [[]]}}]
+[%{id: :aoeu, start: {ABCD.Fourletters, :start_link, [[]]}}]
+iex(8)> # iex(2)> {:ok, pid} = Supervisor.start_link(children, strategy: :one_for_one)
+nil
+iex(9)> children = [%{id: :aoeu, start: {ABCD.Fourletters, :start_link, [[]]}}]
+[%{id: :aoeu, start: {ABCD.Fourletters, :start_link, [[]]}}]
+iex(10)> {:ok, pid} = Supervisor.start_link(children, strategy: :one_for_one)
+{:ok, #PID<0.361.0>}
+
+
+iex(2)> {:ok, pid} = Supervisor.start_link(children, strategy: :one_for_one)
+{:ok, #PID<0.366.0>}
+iex(3)> Supervisor.count_children(pid)
+%{active: 1, specs: 1, supervisors: 0, workers: 1}
+iex(4)> Supervisor.start_child(pid,
+...(4)> %{id: :aoeu, start: {ABCD.Fourletters, :start_link, [[]]}})
+{:error, {:already_started, #PID<0.367.0>}}
+iex(5)> %{id: :tutu, start: {ABCD.Fourletters, :start_link, [[]]}})
+** (SyntaxError) iex:5:59: unexpected token: )
+
+iex(5)> Supervisor.start_child(pid, %{id: :tutu, start: {ABCD.Fourletters, :start_link, [[]]}})
+{:ok, #PID<0.373.0>}
+iex(6)> Supervisor.count_children(pid)
+%{active: 2, specs: 2, supervisors: 0, workers: 2}
+iex(7)> {:error, {:already_started, child_pid}} = Supervisor.start_child(pid, %{id: :tutu, start: {ABCD.Fourletters, :start_link, [[]]}})
+{:error, {:already_started, #PID<0.373.0>}}
