@@ -4,8 +4,8 @@ defmodule ABCD.Fourletters do
   @doc """
   Start a new fourletters.
   """
-  def start_link(_opts) do
-    Agent.start_link(fn -> [] end)
+  def start_link(opts) do
+    Agent.start_link(fn -> opts end)
   end
 
   @doc """
