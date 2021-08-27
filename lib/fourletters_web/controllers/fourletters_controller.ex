@@ -3,6 +3,7 @@ defmodule FourlettersWeb.FourlettersController do
   import Fourletters.Troll
   import ABCD.Fourletters
 
+
   def fourletters(conn, %{"fourletters" => fourletters}) do
     if String.length(fourletters) == 4 do
 
@@ -19,6 +20,7 @@ defmodule FourlettersWeb.FourlettersController do
     end
   end
 
+
   def addletters(conn, _params) do
     %{params: params, path_params: path_params} = conn
     %{"fourletters" => fourletters, "message" => message} = params
@@ -31,11 +33,18 @@ defmodule FourlettersWeb.FourlettersController do
         {:error, {:already_started, pid}} -> pid
       end
       messages = ABCD.Fourletters.put(pid, message)
-      json(conn, %{fourletters: fourletters, messages: messages})
+      messages = ABCD.Fourletters.get(pid)
+      conn
+      |> put_status(:created)
+      # |> json(%{fourletters: fourletters, messages: messages})
+      # |> put_status(:ok)
+      |> redirect(to: "/#{fourletters}")
+      # |> render("four.html", fourletters: fourletters, messages: messages)
     else
       json(conn, %{error: message})
     end
   end
+
 
   def nothing(conn, _params) do
     render(conn, "nothing.html")

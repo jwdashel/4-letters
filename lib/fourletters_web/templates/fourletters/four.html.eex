@@ -1,4 +1,10 @@
 <h1>hey <%= @fourletters %></h1>
+<form action="" method="post">
+	<label for="message">message:</label><br>
+	<input type=”text” id="message" name="message"><br><br>
+	<input type="submit" value="Submit">
+</form>
+
 <ul>
 	<%= for message <- @messages do %>
 	<li>

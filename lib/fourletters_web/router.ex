@@ -18,8 +18,6 @@ defmodule FourlettersWeb.Router do
 
     get "/", FourlettersController, :nothing
     get "/:fourletters", FourlettersController, :fourletters
-    # get "/fourletters", FourlettersController, :index
-    # get "/fourletters/:messenger", FourlettersController, :show
   end
 
   # Other scopes may use custom stacks.

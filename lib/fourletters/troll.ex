@@ -7,8 +7,7 @@ defmodule Fourletters.Troll do
   @impl true
   def init(_arg) do
     children = [
-      %{id: :butt, 
-        start: {ABCD.Fourletters, :start_link, [["yo"]]}}
+      %{id: :butt, start: {ABCD.Fourletters, :start_link, [["yo"]]}}
     ]
 
     Supervisor.init(children, strategy: :one_for_one)
