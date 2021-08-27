@@ -1,1 +1,6 @@
 <h1>4-letters.net</h1>
+<form action="/" method="get">
+	<label for="fourletters">fourletters:</label><br>
+	<input type=”text” id="fourletters" name="fourletters"><br><br>
+	<input type="submit" value="Submit">
+</form>

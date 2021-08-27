@@ -1,10 +1,14 @@
 <h1>hey <%= @fourletters %></h1>
+<a href="/">go home</a><br><br>
 <form action="" method="post">
 	<label for="message">message:</label><br>
 	<input type=”text” id="message" name="message"><br><br>
 	<input type="submit" value="Submit">
 </form>
 
+<form action="/api/clear/<%= @fourletters %>" method="post">
+	<input type="submit" value="Clear">
+</form>
 <ul>
 	<%= for message <- @messages do %>
 	<li>

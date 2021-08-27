@@ -25,6 +25,13 @@ defmodule FourlettersWeb.Router do
     pipe_through :api
 
     post "/:fourletters", FourlettersController, :addletters
+
+    post "/api/:fourletters", FourlettersController, :apiaddletters
+
+    delete "/api/:fourletters", FourlettersController, :apiclearletters
+
+    # for stupid html forms that dont do DELETE
+    post "/api/clear/:fourletters", FourlettersController, :clearletters
   end
 
   # Enables LiveDashboard only for development

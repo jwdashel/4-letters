@@ -22,6 +22,10 @@ defmodule ABCD.Fourletters do
     Agent.update(name, fn list -> append(list, value) end)
   end
 
+  def clear(name) do
+    Agent.update(name, fn _ -> [] end)
+  end
+
   defp append(lines, value) when is_list(lines) and length(lines) < 101 do
     lines ++ [value]
   end
