@@ -27,4 +27,5 @@
       <%= @inner_content %>
     </main>
   </body>
+
 </html>

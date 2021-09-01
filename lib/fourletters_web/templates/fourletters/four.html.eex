@@ -1,18 +1,27 @@
-<h1>hey <%= @fourletters %></h1>
-<a href="/">go home</a><br><br>
-<form action="" method="post">
-	<label for="message">message:</label><br>
-	<input type=”text” id="message" name="message"><br><br>
-	<input type="submit" value="Submit">
-</form>
-
-<form action="/api/clear/<%= @fourletters %>" method="post">
-	<input type="submit" value="Clear">
-</form>
-<ul>
-	<%= for message <- @messages do %>
-	<li>
-		<%= message %>
-	</li>
-	<% end %>
-</ul>
+<style>
+</style>
+<div style="float: left">
+	<h1><span style="font-family: cursive">it's</span> <strong><%= @fourletters %></strong></h1>
+	<br><br>
+	<form id="new-message" action="" method="post">
+		<label for="message"></label><br>
+		<input type=”text” maxlength=100 id="message" name="message"><br><br>
+		<input type="submit" value="    &#x21E8;    ">
+	</form>
+	<br><br>
+	<form id="clear" action="/api/clear/<%= @fourletters %>" method="post">
+		<input type="submit" value="c l e a r">
+	</form>
+	<br><br>
+	<a href="/">go home</a>
+</div>
+<div id="messages" style="float: left">
+	<p><%= length(@messages) %> of 100</p>
+	<ul>
+		<%= for message <- @messages do %>
+		<li>
+			<%= message %>
+		</li>
+		<% end %>
+	</ul>
+</div>

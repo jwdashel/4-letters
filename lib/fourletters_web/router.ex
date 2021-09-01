@@ -25,6 +25,7 @@ defmodule FourlettersWeb.Router do
     pipe_through :api
 
     post "/:fourletters", FourlettersController, :addletters
+    get "/api/:fourletters", FourlettersController, :getmessages
 
     post "/api/:fourletters", FourlettersController, :apiaddletters
 

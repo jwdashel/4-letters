@@ -19,6 +19,21 @@ defmodule FourlettersWeb.FourlettersController do
     end
   end
 
+  def getmessages(conn, %{"fourletters" => fourletters}) do
+    if String.length(fourletters) == 4 do
+
+      pid = case Supervisor.start_child(
+          Fourletters.Troll,
+          %{id: String.to_atom(fourletters), start: {ABCD.Fourletters, :start_link, [[]]}}) do
+        {:ok, pid} -> pid
+        {:error, {:already_started, pid}} -> pid
+      end
+      messages = ABCD.Fourletters.get(pid)
+      json(conn, %{fourletters: fourletters, messages: messages})
+    else
+      json(conn, %{welcome: "this is fourletters"})
+    end
+  end
 
   def addletters(conn, _params) do
     %{params: params} = conn
@@ -40,7 +55,7 @@ defmodule FourlettersWeb.FourlettersController do
       redirect(conn, to: "/#{fourletters}")
       # |> render("four.html", fourletters: fourletters, messages: messages)
     else
-      json(conn, %{error: message})
+      redirect(conn, to: "/#{fourletters}")
     end
   end
 
