@@ -29,7 +29,7 @@ defmodule FourlettersWeb.Router do
 
     post "/api/:fourletters", FourlettersController, :apiaddletters
 
-    delete "/api/:fourletters", FourlettersController, :apiclearletters
+    delete "/api/:fourletters", FourlettersController, :clearletters
 
     # for stupid html forms that dont do DELETE
     post "/api/clear/:fourletters", FourlettersController, :clearletters

@@ -7,6 +7,7 @@ defmodule Fourletters.Troll do
   @impl true
   def init(_arg) do
     children = [
+      # initial case, not required
       %{id: :butt, start: {ABCD.Fourletters, :start_link, [["yo"]]}}
     ]
 
